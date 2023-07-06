@@ -66,7 +66,7 @@ class Declare4Py:
         self.log = pm4py.read_xes(log_path)
         self.log_length = len(self.log)
 
-    def load_xes_log(self,log: EventLog) -> EventLog:
+    def load_xes_log(self,log: pm4py.objects.log.obj.EventLog) -> pm4py.objects.log.obj.EventLog:
         self.log = log
         self.log_length = len(self.log)
 
