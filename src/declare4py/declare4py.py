@@ -8,8 +8,6 @@ from mlxtend.preprocessing import TransactionEncoder
 from mlxtend.frequent_patterns import fpgrowth, apriori
 from itertools import product
 
-
-
 class Declare4Py:
     """
     Wrapper that collects the input log and model, the supported templates, the output for the discovery, conformance
@@ -69,6 +67,10 @@ class Declare4Py:
         self.log = pm4py.read_xes(log_path)
         self.log_length = len(self.log)
 
+    def load_xes_log(self,log: EventLog) -> EventLog:
+        self.log = log
+        self.log_length = len(self.log)
+
     def activities_log_projection(self) -> list[list[str]]:
         """
         Return for each trace a time-ordered list of the activity names of the events.
@@ -84,7 +86,7 @@ class Declare4Py:
         for trace in self.log:
             tmp_trace = []
             for event in trace:
-                tmp_trace.append(event["concept:name"])
+                tmp_trace.append(event['concept:name'])
             projection.append(tmp_trace)
         return projection
 
@@ -183,7 +185,7 @@ class Declare4Py:
             raise RuntimeError("You must load a log before.")
         trace_ids = []
         for trace_id, trace in enumerate(self.log):
-            trace_ids.append((trace_id, trace.attributes["concept:name"]))
+            trace_ids.append((trace_id, trace.attributes['concept:name']))
         return trace_ids
 
     def get_log_length(self) -> int:
@@ -243,7 +245,7 @@ class Declare4Py:
         activities = set()
         for trace in self.log:
             for event in trace:
-                activities.add(event["concept:name"])
+                activities.add(event['concept:name'])
         return list(activities)
 
     def get_frequent_item_sets(self) -> pd.DataFrame:
@@ -356,7 +358,7 @@ class Declare4Py:
         self.conformance_checking_results = {}
         for i, trace in enumerate(self.log):
             trc_res = check_trace_conformance(trace, self.model, consider_vacuity)
-            self.conformance_checking_results[(i, trace.attributes["concept:name"])] = trc_res
+            self.conformance_checking_results[(i, trace.attributes['concept:name'])] = trc_res
 
         return self.conformance_checking_results
 

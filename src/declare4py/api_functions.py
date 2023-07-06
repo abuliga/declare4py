@@ -36,14 +36,14 @@ def check_trace_conformance(trace, model, consider_vacuity):
             elif constraint['template'] is Template.EXACTLY:
                 trace_results[constraint_str] = mp_exactly(trace, True, constraint['activities'][0], rules)
 
-            elif constraint['template'] is Template.CHOICE:
-                trace_results[constraint_str] = mp_choice(trace, True, constraint['activities'][0],
-                                                          constraint['activities'][1], rules)
+            #elif constraint['template'] is Template.CHOICE:
+            #    trace_results[constraint_str] = mp_choice(trace, True, constraint['attributes'].split(', ')[0],
+            #                                              constraint['attributes'].split(', ')[1], rules)
 
-            elif constraint['template'] is Template.EXCLUSIVE_CHOICE:
-                trace_results[constraint_str] = mp_exclusive_choice(trace, True,
-                                                                    constraint['activities'][0],
-                                                                    constraint['activities'][1], rules)
+            #elif constraint['template'] is Template.EXCLUSIVE_CHOICE:
+            #    trace_results[constraint_str] = mp_exclusive_choice(trace, True,
+            #                                                        constraint['attributes'].split(', ')[0],
+            #                                                        constraint['attributes'].split(', ')[1], rules)
 
             elif constraint['template'] is Template.RESPONDED_EXISTENCE:
                 trace_results[constraint_str] = mp_responded_existence(trace, True,
@@ -75,9 +75,9 @@ def check_trace_conformance(trace, model, consider_vacuity):
 
             elif constraint['template'] is Template.CHAIN_PRECEDENCE:
                 trace_results[constraint_str] = mp_chain_precedence(trace, True,
-                                                                    constraint['activities'][0],
-                                                                    constraint['activities'][1], rules)
-
+                                                                    constraint['attributes'].split(', ')[0],
+                                                                    constraint['attributes'].split(', ')[1], rules)
+            '''
             elif constraint['template'] is Template.NOT_RESPONDED_EXISTENCE:
                 trace_results[constraint_str] = mp_not_responded_existence(trace, True,
                                                                            constraint['activities'][0],
@@ -103,6 +103,7 @@ def check_trace_conformance(trace, model, consider_vacuity):
                                                                         constraint['activities'][0],
                                                                         constraint['activities'][1], rules)
 
+            '''
         except SyntaxError:
             if constraint_str not in error_constraint_set:
                 error_constraint_set.add(constraint_str)

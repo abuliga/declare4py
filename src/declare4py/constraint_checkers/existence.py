@@ -17,7 +17,7 @@ def mp_existence(trace, done, a, rules):
 
     num_activations = 0
     for A in trace:
-        if A["concept:name"] == a:
+        if A['concept:name'] == a:
             locl = {'A': A, 'T': trace[0], 'timedelta': timedelta, 'abs': abs, 'float': float}
             if eval(activation_rules, glob, locl) and eval(time_rule, glob, locl):
                 num_activations += 1
@@ -45,7 +45,7 @@ def mp_absence(trace, done, a, rules):
 
     num_activations = 0
     for A in trace:
-        if A["concept:name"] == a:
+        if A['concept:name'] == a:
             locl = {'A': A, 'T': trace[0], 'timedelta': timedelta, 'abs': abs, 'float': float}
             if eval(activation_rules, glob, locl) and eval(time_rule, glob, locl):
                 num_activations += 1
@@ -71,7 +71,7 @@ def mp_init(trace, done, a, rules):
     activation_rules = parse_data_cond(rules["activation"])
 
     state = TraceState.VIOLATED
-    if trace[0]["concept:name"] == a:
+    if trace[0]['concept:name'] == a:
         locl = {'A': trace[0]}
         if eval(activation_rules, glob, locl):
             state = TraceState.SATISFIED
@@ -88,7 +88,7 @@ def mp_exactly(trace, done, a, rules):
 
     num_activations = 0
     for A in trace:
-        if A["concept:name"] == a:
+        if A['concept:name'] == a:
             locl = {'A': A, 'T': trace[0], 'timedelta': timedelta, 'abs': abs, 'float': float}
             if eval(activation_rules, glob, locl) and eval(time_rule, glob, locl):
                 num_activations += 1

@@ -12,10 +12,9 @@ glob = {'__builtins__': None}
 def mp_choice(trace, done, a, b, rules):
     activation_rules = parse_data_cond(rules["activation"])
     time_rule = parse_time_cond(rules["time"])
-
     a_or_b_occurs = False
     for A in trace:
-        if A["concept:name"] == a or A["concept:name"] == b:
+        if A['concept:name'] == a or A['concept:name'] == b:
             locl = {'A': A, 'T': trace[0], 'timedelta': timedelta, 'abs': abs, 'float': float}
             if eval(activation_rules, glob, locl) and eval(time_rule, glob, locl):
                 a_or_b_occurs = True
@@ -43,10 +42,10 @@ def mp_exclusive_choice(trace, done, a, b, rules):
     b_occurs = False
     for A in trace:
         locl = {'A': A, 'T': trace[0], 'timedelta': timedelta, 'abs': abs, 'float': float}
-        if not a_occurs and A["concept:name"] == a:
+        if not a_occurs and A['concept:name'] == a:
             if eval(activation_rules, glob, locl) and eval(time_rule, glob, locl):
                 a_occurs = True
-        if not b_occurs and A["concept:name"] == b:
+        if not b_occurs and A['concept:name'] == b:
             if eval(activation_rules, glob, locl) and eval(time_rule, glob, locl):
                 b_occurs = True
         if a_occurs and b_occurs:
